@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.protkoIA.project.entity.Evaluation;
+import com.protkoIA.project.entity.Session;
 import com.protkoIA.project.service.EvaluationService;
 import com.protkoIA.project.service.SessionService;
 import com.protkoIA.project.service.StudentService;
@@ -54,6 +55,15 @@ public class EvaluationController {
 		return "evaluation-add-edit";
 	}
 
+	@RequestMapping("/fromSession/edit/{id}")
+	public String editFromSession(Model model, @PathVariable(name = "id", required = false) Long id) {
+		model.addAttribute("entity", new Evaluation());
+		Session session = serviceSession.read(id);
+		model.addAttribute("sessions", session);
+		model.addAttribute("students", session.getGroup().getStudents());
+		model.addAttribute("subjects", session.getSubjects());
+		return "evaluation-add-edit";
+	}
 	@RequestMapping(path = "/get/{id}")
 	public String get(Model model, @PathVariable("id") Long id) throws Exception {
 		model.addAttribute("entity", service.read(id));

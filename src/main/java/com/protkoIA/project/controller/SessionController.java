@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.protkoIA.project.entity.Group;
 import com.protkoIA.project.entity.Session;
 import com.protkoIA.project.service.EvaluationService;
 import com.protkoIA.project.service.GroupService;
@@ -58,12 +59,23 @@ public class SessionController {
 		model.addAttribute("groups", serviceGroup.read(id));
 		return "session-add-edit";
 	}
-	@RequestMapping(path = "/get/{id}")
-	public String get(Model model, @PathVariable("id") Long id) throws Exception {
-		model.addAttribute("entity", service.read(id));
-		return "session-info";
+	@RequestMapping(path = "/getSubject/{id}")
+	public String getSubject(Model model, @PathVariable("id") Long id) throws Exception {
+		Session session = service.read(id);
+		model.addAttribute("from", true);
+		model.addAttribute("entity", session);
+		model.addAttribute("list", session.getSubjects());
+		return "subjectSession-list";
 	}
 
+	@RequestMapping(path = "/getEvaluation/{id}")
+	public String getEvaluation(Model model, @PathVariable("id") Long id) throws Exception {
+		Session group = service.read(id);
+		model.addAttribute("from", true);
+		model.addAttribute("entity", group);
+		model.addAttribute("list", group.getEvaluations());
+		return "evaluation-list";
+	}
 	@RequestMapping(path = "/delete/{id}")
 	public String delete(Model model, @PathVariable("id") Long id) throws Exception {
 		service.delete(id);

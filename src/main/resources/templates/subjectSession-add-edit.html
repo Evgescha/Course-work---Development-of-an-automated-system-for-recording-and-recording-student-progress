@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Добавить/Редактировать</title>
+    <div th:replace="~{commons :: head}"></div>
+</head>
+
+<body>
+    <div th:replace="~{commons :: nav}"></div>
+    <section class="editTypeFood">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <h2 class="text-center">Предмет сессии</h2>
+                    <form th:action="@{/subject/createSes}" method="post" class="register">
+                        <table>
+                            <tbody>
+                                <tr>
+	                            <th><label class="mx-2">Выберите предмет сессии</label></th>
+	                            <td>
+	                            	<select name="subjectId" id="subjectId" required>
+	                            		<option th:if="${entity==null}" name="subjectId" th:each="cat : ${list}" th:value="${cat.id}" th:text="${cat}"></option>
+										<option th:if="${entity!=null}" name="subjectId" th:each="cat : ${list}" th:value="${cat.id}" th:text="${cat}"
+											th:selected="${entity.id==cat.id}"
+											></option>
+									</select>
+	                            </td>
+	                        </tr>
+                            </tbody>
+                        </table>
+                        <p class="my-5 justify-content-between d-flex">
+                            <input type="hidden" id="id" th:value="${sessionId}" name="sessionId">
+                            <input type="button" class="btn btn-primary" value=" Назад " onclick="history.back()" />
+                            <input type="submit" class="btn btn-primary" value=" Отправить ">
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
