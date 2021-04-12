@@ -41,11 +41,11 @@
 	                            </div>
 	                            <p th:if="${from==null}" class="d-flex justify-content-end">
 	                                <a href="/subject/edit" class="btn btn-primary mx-2">
-	                                <i class="fas fa-plus"> Добавить запись </i></a>
+	                                <i class="fas fa-plus"> Добавить запись в общем </i></a>
 	                            </p>       
 	                            <p th:if="${from==true}" class="d-flex justify-content-end">
 	                                <a th:href="'/subject/fromSession/edit/'+${entity.id}" class="btn btn-primary mx-2">
-	                                <i class="fas fa-plus"> Добавить запись </i></a>
+	                                <i class="fas fa-plus"> Добавить запись текущей сессии </i></a>
 	                            </p>          
 	                            <p class="d-flex justify-content-end">
 	                              <input type="button" class="btn btn-primary" value = " Назад " onclick="history.back()"/>   

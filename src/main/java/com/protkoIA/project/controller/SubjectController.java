@@ -23,11 +23,9 @@ public class SubjectController {
 	@Autowired
 	SubjectService service;
 
-
 	@Autowired
 	SessionService serviceSession;
-	
-	
+
 	@GetMapping
 	String getCategory(Model model) {
 		List<Subject> list = service.repository.findAll();
@@ -51,20 +49,18 @@ public class SubjectController {
 		model.addAttribute("entity", new Subject());
 		return "subject-add-edit";
 	}
+
 	@RequestMapping(path = "/get/{id}")
 	public String get(Model model, @PathVariable("id") Long id) throws Exception {
 		model.addAttribute("entity", service.read(id));
 		return "subject-info";
 	}
 
-
 	@RequestMapping(path = "/create", method = RequestMethod.POST)
 	public String createOrUpdate(Subject entity) throws Exception {
 		service.create(entity);
 		return "redirect:/subject";
 	}
-	
-	
 
 	@RequestMapping(path = { "/editSes", "/editSes/{id}" })
 	public String editSes(Model model, @PathVariable(name = "id", required = false) Long id) {
@@ -80,25 +76,24 @@ public class SubjectController {
 	}
 
 	@RequestMapping(path = "/deleteSes/{id}_{sessionId}")
-	public String delete(Model model, @PathVariable("id") Long id, @PathVariable("sessionId") Long sessionId) throws Exception {
+	public String delete(Model model, @PathVariable("id") Long id, @PathVariable("sessionId") Long sessionId)
+			throws Exception {
 		Session session = serviceSession.read(sessionId);
 		session.getSubjects().remove(service.read(id));
 		serviceSession.update(session);
-		return "redirect:/session/getSubject/"+sessionId;
+		return "redirect:/session/getSubject/" + sessionId;
 	}
 
 	@RequestMapping(path = "/createSes", method = RequestMethod.POST)
-	public String createOrUpdateSes(@Param("subjectId") Long subjectId, @Param("sessionId") Long sessionId) throws Exception {
+	public String createOrUpdateSes(@Param("subjectId") Long subjectId, @Param("sessionId") Long sessionId)
+			throws Exception {
 		Session session = serviceSession.read(sessionId);
-//		session.getSubjects().add(service.read(subjectId));
-//		serviceSession.update(session);
-		
 		Subject subject = service.read(subjectId);
 		subject.getSessions().add(session);
 		service.update(subject);
-		System.out.println("К сессии с ид: " +sessionId);
-		System.out.println("пытаемся добавить предмет с ид: " +subjectId);
-		return "redirect:/session/getSubject/"+sessionId;
+		System.out.println("К сессии с ид: " + sessionId);
+		System.out.println("пытаемся добавить предмет с ид: " + subjectId);
+		return "redirect:/session/getSubject/" + sessionId;
 	}
-	
+
 }
