@@ -38,13 +38,22 @@ public class GroupController {
 		return "group-add-edit";
 	}
 
-	@RequestMapping(path = "/get/{id}")
-	public String get(Model model, @PathVariable("id") Long id) throws Exception {
+	@RequestMapping(path = "/getStudent/{id}")
+	public String getStudent(Model model, @PathVariable("id") Long id) throws Exception {
 		Group group = service.read(id);
 		model.addAttribute("fromGroup", true);
 		model.addAttribute("entity", group);
 		model.addAttribute("list", group.getStudents());
 		return "student-list";
+	}
+
+	@RequestMapping(path = "/getSession/{id}")
+	public String getSession(Model model, @PathVariable("id") Long id) throws Exception {
+		Group group = service.read(id);
+		model.addAttribute("fromGroup", true);
+		model.addAttribute("entity", group);
+		model.addAttribute("list", group.getSessions());
+		return "session-list";
 	}
 
 	@RequestMapping(path = "/delete/{id}")

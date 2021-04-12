@@ -52,6 +52,12 @@ public class SessionController {
 		return "session-add-edit";
 	}
 
+	@RequestMapping("/fromGroup/edit/{id}")
+	public String editFromGroup(Model model, @PathVariable(name = "id", required = false) Long id) {
+		model.addAttribute("entity", new Session());
+		model.addAttribute("groups", serviceGroup.read(id));
+		return "session-add-edit";
+	}
 	@RequestMapping(path = "/get/{id}")
 	public String get(Model model, @PathVariable("id") Long id) throws Exception {
 		model.addAttribute("entity", service.read(id));

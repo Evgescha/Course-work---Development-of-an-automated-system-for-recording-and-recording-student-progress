@@ -24,6 +24,7 @@
 	                                        	<th>Год основания</th>
 	                                        	<th>Год выпуска</th>
 	                                        	<th>Студенты</th>
+	                                        	<th>Сессии</th>
 	                                      </tr>
 	                                    </thead>
 	                                    <tbody>
@@ -32,10 +33,15 @@
 	                                            <td th:text="${entity.yearStart}"></td>
 	                                            <td th:text="${entity.yearEnd}"></td>
 	                                            <td class="btnInTable widthLastCol" >
-	                                                <a th:href="@{/group/get/{id}(id=${entity.id})}" class="btn btn-primary ">
+	                                                <a th:href="@{/group/getStudent/{id}(id=${entity.id})}" class="btn btn-primary ">
 	                                                    <i class="fas fa-edit">Студенты</i>
 	                                                </a>
-	                                            </td>	                                            
+	                                            </td>	    
+	                                            <td class="btnInTable widthLastCol" >
+	                                                <a th:href="@{/group/getSession/{id}(id=${entity.id})}" class="btn btn-primary ">
+	                                                    <i class="fas fa-edit">Сессии</i>
+	                                                </a>
+	                                            </td>                                        
 	                                            <td class="btnInTable widthLastCol" >
 	                                                <a th:href="@{/group/edit/{id}(id=${entity.id})}" class="btn btn-primary ">
 	                                                    <i class="fas fa-edit">Редактировать</i>
