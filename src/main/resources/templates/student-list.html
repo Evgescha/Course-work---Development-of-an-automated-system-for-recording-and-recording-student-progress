@@ -29,6 +29,7 @@
 	                                        	<th>Тип обучения</th>
 	                                        	<th>Группа</th>
 	                                        	<th>Адрес</th>
+	                                        	<th>Средняя оценка</th>
 	                                      </tr>
 	                                    </thead>
 	                                    <tbody>
@@ -41,6 +42,7 @@
 	                                            <td th:text="${entity.trainingType.name}"></td>
 	                                            <td th:text="${entity.group.name}"></td>
 	                                            <td th:text="${entity.adres}"></td>
+	                                            <td th:if="${#lists.size(entity.evaluations)}>0" th:text="${#aggregates.sum(entity.evaluations.![evaluation])}/${#lists.size(entity.evaluations)}"></td>	                                           
 	                                            <td class="btnInTable widthLastCol" >
 	                                                <a th:href="@{/student/edit/{id}(id=${entity.id})}" class="btn btn-primary ">
 	                                                    <i class="fas fa-edit">Редактировать</i>

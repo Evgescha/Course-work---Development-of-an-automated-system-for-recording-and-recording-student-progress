@@ -1,5 +1,6 @@
 package com.protkoIA.project.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.protkoIA.project.entity.Group;
+import com.protkoIA.project.entity.Evaluation;
 import com.protkoIA.project.entity.Session;
+import com.protkoIA.project.entity.Subject;
 import com.protkoIA.project.service.EvaluationService;
 import com.protkoIA.project.service.GroupService;
 import com.protkoIA.project.service.SessionService;
@@ -64,7 +66,22 @@ public class SessionController {
 		Session session = service.read(id);
 		model.addAttribute("from", true);
 		model.addAttribute("entity", session);
-		model.addAttribute("list", session.getSubjects());
+		
+		
+		ArrayList<SessionSubject> list = new ArrayList<SessionSubject>();
+		for(Subject sbj:session.getSubjects()){
+			int countCurrentSubject=0;
+			int sumCurrentSubject=0;
+			for(Evaluation ev:session.getEvaluations()) {
+				if(ev.getSubject().getId()==sbj.getId()) {
+					countCurrentSubject++;
+					sumCurrentSubject+=ev.getEvaluation();
+				}
+			}
+			list.add(new SessionSubject(sbj, countCurrentSubject, sumCurrentSubject));
+		}
+		
+		model.addAttribute("list", list);
 		return "subjectSession-list";
 	}
 
@@ -89,4 +106,42 @@ public class SessionController {
 		service.create(entity);
 		return "redirect:/session";
 	}
+	
+}
+class SessionSubject{
+	Long id;
+	String name;
+	int countCurrentSubject=0;
+	int sumCurrentSubject=0;
+	SessionSubject(Subject subject, int countCurrentSubject, int sumCurrentSubject){
+		id=subject.getId();
+		name=subject.getName();
+		this.countCurrentSubject=countCurrentSubject;
+		this.sumCurrentSubject=sumCurrentSubject;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getCountCurrentSubject() {
+		return countCurrentSubject;
+	}
+	public void setCountCurrentSubject(int countCurrentSubject) {
+		this.countCurrentSubject = countCurrentSubject;
+	}
+	public int getSumCurrentSubject() {
+		return sumCurrentSubject;
+	}
+	public void setSumCurrentSubject(int sumCurrentSubject) {
+		this.sumCurrentSubject = sumCurrentSubject;
+	}
+	
 }
