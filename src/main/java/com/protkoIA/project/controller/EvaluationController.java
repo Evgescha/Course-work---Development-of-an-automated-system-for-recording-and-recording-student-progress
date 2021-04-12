@@ -3,6 +3,7 @@ package com.protkoIA.project.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,9 +68,9 @@ public class EvaluationController {
 
 	@RequestMapping(path = "/create", method = RequestMethod.POST)
 	public String createOrUpdate(Evaluation entity, 
-			@PathVariable("session_id") Long session_id, 
-			@PathVariable("student_id") Long student_id, 
-			@PathVariable("subject_id") Long subject_id) throws Exception {
+			@Param("session_id") Long session_id, 
+			@Param("student_id") Long student_id, 
+			@Param("subject_id") Long subject_id) throws Exception {
 		
 		entity.setSession(serviceSession.read(session_id));
 		entity.setStudent(serviceStudent.read(student_id));

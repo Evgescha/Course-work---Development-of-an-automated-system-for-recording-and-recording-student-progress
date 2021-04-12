@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавить/Редактировать</title>
+    <div th:replace="~{commons :: head}"></div>
+</head>
+<body>
+	<div th:replace="~{commons :: nav}"></div>
+	
+	<section class="editCategory">
+	    <div class="container">
+	        <div class="row">
+	        <div class="col-12 col-md-12 col-lg-8 mx-auto">
+				 <h2 class="text-center">Сессия</h2>
+	             <form th:action="@{/evaluation/create}" th:object="${entity}" method="post" class="register">
+	                <table>
+	                    <tbody>
+	                        <tr>
+	                            <th><label class="mx-2">Сессия</label></th>
+	                            <td>
+	                            	<select name="session_id" id="session_id" required>
+	                            		<option th:if="${entity.session==null}" name="session_id" th:each="cat : ${sessions}" th:value="${cat.id}" th:text="${cat}"
+											th:selected="${entity.session==cat}"
+											></option>
+										<option th:if="${entity.session!=null}" name="session_id" th:each="cat : ${sessions}" th:value="${cat.id}" th:text="${cat}"
+											th:selected="${entity.session.id==cat.id}"
+											></option>
+									</select>
+	                            </td>
+	                        </tr>	
+	                        <tr>
+	                            <th><label class="mx-2">Предмет</label></th>
+	                            <td>
+	                            	<select name="subject_id" id="subject_id" required>
+	                            		<option th:if="${entity.subject==null}" name="subject_id" th:each="cat : ${subjects}" th:value="${cat.id}" th:text="${cat}"
+											th:selected="${entity.subject==cat}"
+											></option>
+										<option th:if="${entity.subject!=null}" name="subject_id" th:each="cat : ${subjects}" th:value="${cat.id}" th:text="${cat}"
+											th:selected="${entity.subject.id==cat.id}"
+											></option>
+									</select>
+	                            </td>
+	                        </tr>	
+	                        <tr>
+	                            <th><label class="mx-2">Студент</label></th>
+	                            <td>
+	                            	<select name="student_id" id="student_id" required>
+	                            		<option th:if="${entity.student==null}" name="student_id" th:each="cat : ${students}" th:value="${cat.id}" th:text="${cat}"
+											th:selected="${entity.student==cat}"
+											></option>
+										<option th:if="${entity.student!=null}" name="student_id" th:each="cat : ${students}" th:value="${cat.id}" th:text="${cat}"
+											th:selected="${entity.student.id==cat.id}"
+											></option>
+									</select>
+	                            </td>
+	                        </tr>	                        
+	                        <tr>
+	                            <th><label class="mx-2">Оценка</label></th>
+	                            <td><input type="number" th:field="*{evaluation}" class="form-control" required min="1" max="10"/></td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	                <p class="my-5 justify-content-between d-flex">
+	                	<input type="hidden" id="id" th:field="*{id}">
+	                	<input type="button" class="btn btn-primary" value = " Назад " onclick="history.back()"/> 
+	                	<input type="submit" class="btn btn-primary" value=" Отправить ">
+	            	</p>
+	            </form>
+	        </div>
+	        </div>
+	    </div>    
+	</section>    
+    
+</body>
+ 
+</html>
