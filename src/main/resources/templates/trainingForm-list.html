@@ -19,11 +19,15 @@
 	                            <div th:case="*" class="overScroll">
 	                                <table class="table table-striped table-responsive-md">
 	                                    <thead>
-	                                        <tr><th>Название</th></tr>
+	                                        <tr>
+	                                        	<th>Название</th>
+	                                        	<th>Количество человек</th>
+                                        	</tr>
 	                                    </thead>
 	                                    <tbody>
 	                                        <tr th:each="entity : ${list}">
 	                                            <td th:text="${entity.name}"></td>
+	                                            <td th:text="${#lists.size(entity.students)}"></td>
 	                                            <td class="btnInTable widthLastCol" >
 	                                                <a th:href="@{/trainingForm/edit/{id}(id=${entity.id})}" class="btn btn-primary ">
 	                                                    <i class="fas fa-edit">Редактировать</i>
