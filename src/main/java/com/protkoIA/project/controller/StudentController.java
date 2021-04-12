@@ -3,6 +3,7 @@ package com.protkoIA.project.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,17 +63,17 @@ public class StudentController {
 	@RequestMapping(path = "/delete/{id}")
 	public String delete(Model model, @PathVariable("id") Long id) throws Exception {
 		service.delete(id);
-		return "redirect:/subject";
+		return "redirect:/student";
 	}
 
 	@RequestMapping(path = "/create", method = RequestMethod.POST)
-	public String createOrUpdate(Student entity, @PathVariable("training_form_id") Long training_form_id, 
-												 @PathVariable("training_type_id") Long training_type_id, 
-												 @PathVariable("group_id") Long group_id) throws Exception {
+	public String createOrUpdate(Student entity, @Param("training_form_id") Long training_form_id, 
+												 @Param("training_type_id") Long training_type_id, 
+												 @Param("group_id") Long group_id) throws Exception {
 		entity.setGroup(serviceGroup.read(group_id));
 		entity.setTrainingForm(serviceTrainingForm.read(training_form_id));
 		entity.setTrainingType(serviceTrainingType.read(training_type_id));
 		service.create(entity);
-		return "redirect:/subject";
+		return "redirect:/student";
 	}
 }

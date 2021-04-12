@@ -27,7 +27,7 @@ public class Group extends AbstractEntity {
 
 	@Override
 	public String toString() {
-		return "Group [name=" + name + ", yearStart=" + yearStart + ", yearEnd=" + yearEnd + "]";
+		return name + " (" + yearStart + " - " + yearEnd + ")";
 	}
 
 

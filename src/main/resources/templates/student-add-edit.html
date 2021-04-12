@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавить/Редактировать</title>
+    <div th:replace="~{commons :: head}"></div>
+</head>
+<body>
+	<div th:replace="~{commons :: nav}"></div>
+	
+	<section class="editCategory">
+	    <div class="container">
+	        <div class="row">
+	        <div class="col-12 col-md-12 col-lg-8 mx-auto">
+				 <h2 class="text-center">Студенты</h2>
+	             <form th:action="@{/student/create}" th:object="${entity}" method="post" class="register">
+	                <table>
+	                    <tbody>
+	                        <tr>
+	                            <th><label class="mx-2">ФИО студента</label></th>
+	                            <td><input type="text" th:field="*{fio}" class="form-control" required/></td>
+	                        </tr>
+	                        <tr>
+	                            <th><label class="mx-2">Дата рождения</label></th>
+	                            <td><input type="date" th:field="*{dateBorn}" class="form-control" required/></td>
+	                        </tr>
+	                        <tr>
+	                            <th><label class="mx-2">Телефон</label></th>
+	                            <td><input type="text" th:field="*{phone}" class="form-control" required/></td>
+	                        </tr>
+	                        <tr>
+	                            <th><label class="mx-2">Адрес</label></th>
+	                            <td><input type="text" th:field="*{adres}" class="form-control" required/></td>
+	                        </tr>
+	                        <tr>
+	                            <th><label class="mx-2">Зачетка</label></th>
+	                            <td><input type="number" th:field="*{cardNumber}" class="form-control" required/></td>
+	                        </tr>
+	                        <tr>
+	                            <th><label class="mx-2">Форма обучения</label></th>
+	                            <td>
+	                            	<select name="training_form_id" id="training_form_id" required>
+	                            		<option th:if="${entity.trainingForm==null}" name="training_form_id" th:each="cat : ${forms}" th:value="${cat.id}" th:text="${cat}"
+											th:selected="${entity.trainingForm==cat}"
+											></option>
+										<option th:if="${entity.trainingForm!=null}" name="training_form_id" th:each="cat : ${forms}" th:value="${cat.id}" th:text="${cat}"
+											th:selected="${entity.trainingForm.id==cat.id}"
+											></option>
+									</select>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <th><label class="mx-2">Тип обучения</label></th>
+	                            <td>
+	                            	<select name="training_type_id" id="training_type_id" required>
+	                            		<option th:if="${entity.trainingType==null}" name="training_type_id" th:each="cat : ${types}" th:value="${cat.id}" th:text="${cat}"
+											th:selected="${entity.trainingType==cat}"
+											></option>
+										<option th:if="${entity.trainingType!=null}" name="training_type_id" th:each="cat : ${types}" th:value="${cat.id}" th:text="${cat}"
+											th:selected="${entity.trainingType.id==cat.id}"
+											></option>
+									</select>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <th><label class="mx-2">Группа</label></th>
+	                            <td>
+	                            	<select name="group_id" id="group_id" required>
+	                            		<option th:if="${entity.group==null}" name="group_id" th:each="cat : ${groups}" th:value="${cat.id}" th:text="${cat}"
+											th:selected="${entity.group==cat}"
+											></option>
+										<option th:if="${entity.group!=null}" name="group_id" th:each="cat : ${groups}" th:value="${cat.id}" th:text="${cat}"
+											th:selected="${entity.group.id==cat.id}"
+											></option>
+									</select>
+	                            </td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	                <p class="my-5 justify-content-between d-flex">
+	                	<input type="hidden" id="id" th:field="*{id}">
+	                	<input type="button" class="btn btn-primary" value = " Назад " onclick="history.back()"/> 
+	                	<input type="submit" class="btn btn-primary" value=" Отправить ">
+	            	</p>
+	            </form>
+	        </div>
+	        </div>
+	    </div>    
+	</section>    
+    
+</body>
+ 
+</html>
