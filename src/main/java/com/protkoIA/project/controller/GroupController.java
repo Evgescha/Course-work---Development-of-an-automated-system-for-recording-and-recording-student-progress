@@ -40,8 +40,11 @@ public class GroupController {
 
 	@RequestMapping(path = "/get/{id}")
 	public String get(Model model, @PathVariable("id") Long id) throws Exception {
-		model.addAttribute("entity", service.read(id));
-		return "group-info";
+		Group group = service.read(id);
+		model.addAttribute("fromGroup", true);
+		model.addAttribute("entity", group);
+		model.addAttribute("list", group.getStudents());
+		return "student-list";
 	}
 
 	@RequestMapping(path = "/delete/{id}")

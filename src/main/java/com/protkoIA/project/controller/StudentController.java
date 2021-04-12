@@ -54,6 +54,15 @@ public class StudentController {
 		return "student-add-edit";
 	}
 
+	@RequestMapping("/fromGroup/edit/{id}")
+	public String editFromGroup(Model model, @PathVariable(name = "id", required = false) Long id) {
+		model.addAttribute("entity", new Student());
+		model.addAttribute("forms",serviceTrainingForm.repository.findAll());
+		model.addAttribute("types",serviceTrainingType.repository.findAll());
+		model.addAttribute("groups",serviceGroup.read(id));
+		return "student-add-edit";
+	}
+
 	@RequestMapping(path = "/get/{id}")
 	public String get(Model model, @PathVariable("id") Long id) throws Exception {
 		model.addAttribute("entity", service.read(id));
