@@ -79,8 +79,9 @@ public class SubjectController {
 	public String delete(Model model, @PathVariable("id") Long id, @PathVariable("sessionId") Long sessionId)
 			throws Exception {
 		Session session = serviceSession.read(sessionId);
-		session.getSubjects().remove(service.read(id));
-		serviceSession.update(session);
+		Subject subject = service.read(id);
+		subject.getSessions().remove(session);
+		service.update(subject);
 		return "redirect:/session/getSubject/" + sessionId;
 	}
 
