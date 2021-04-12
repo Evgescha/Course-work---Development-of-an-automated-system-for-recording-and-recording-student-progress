@@ -37,4 +37,9 @@ public class Student extends AbstractEntity {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
 	private List<Evaluation> evaluations = new ArrayList<Evaluation>();
 
+	@Override
+	public String toString() {
+		return fio + ", " + group + ", " + trainingForm + ", " + trainingType;
+	}
+
 }

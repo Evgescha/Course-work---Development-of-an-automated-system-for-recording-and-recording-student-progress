@@ -28,4 +28,11 @@ public class Session extends AbstractEntity {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "session")
 	private Collection<Evaluation> evaluations= new ArrayList<Evaluation>();
+
+	@Override
+	public String toString() {
+		return name + ", " + semestr + " семестр, " + group;
+	}
+	
+	
 }
