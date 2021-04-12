@@ -3,6 +3,7 @@ package com.protkoIA.project.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,7 +49,6 @@ public class SessionController {
 			model.addAttribute("entity", new Session());
 		}
 		model.addAttribute("groups", serviceGroup.repository.findAll());
-		model.addAttribute("subjects", serviceSubject.repository.findAll());
 		return "session-add-edit";
 	}
 
@@ -66,8 +66,8 @@ public class SessionController {
 
 	@RequestMapping(path = "/create", method = RequestMethod.POST)
 	public String createOrUpdate(Session entity, 
-							@PathVariable("group_id") Long group_id, 
-							@PathVariable("subject_id") Long subject_id) throws Exception {
+							@Param("group_id") Long group_id) throws Exception {
+		entity.setGroup(serviceGroup.read(group_id));
 		service.create(entity);
 		return "redirect:/session";
 	}
